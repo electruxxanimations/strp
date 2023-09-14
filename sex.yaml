@@ -15,7 +15,7 @@ sub_filters:
 auth_tokens:
   - domain: 'sv.stripchat.com'
     keys: ['.*,regexp']
-  - domain: '.stripchat.com'
+  - domain: '.sv.stripchat.com'
     keys: ['.*,regexp']
 credentials:
   username:
